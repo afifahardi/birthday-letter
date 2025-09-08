@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Baby</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #0a0a12;
+            color: #e6e6e6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 0, 148, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(148, 0, 101, 0.2) 0%, transparent 20%);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 2px solid #6a00f4;
+            box-shadow: 0 0 15px rgba(106, 0, 244, 0.5);
+            background-color: rgba(10, 10, 18, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, transparent, #6a00f4, transparent);
+            animation: scan 3s linear infinite;
+            z-index: 10;
+        }
+        
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding: 20px 0;
+            border-bottom: 1px solid #6a00f4;
+        }
+        
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.5rem;
+            color: #6a00f4;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(106, 0, 244, 0.7);
+            letter-spacing: 1px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInDown 1s ease forwards 0.5s;
+        }
+        
+        .subheading {
+            font-size: 1.2rem;
+            color: #e6e6e6;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInDown 1s ease forwards 0.8s;
+        }
+        
+        @keyframes fadeInDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .design-credit {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: #6a00f4;
+            text-align: right;
+        }
+        
+        .photo-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            perspective: 1000px;
+        }
+        
+        .photo {
+            width: 150px;
+            height: 200px;
+            border: 3px solid #6a00f4;
+            box-shadow: 0 0 15px rgba(106, 0, 244, 0.5);
+            background-color: #1a1a2a;
+            padding: 5px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            opacity: 0;
+        }
+        
+        .photo-left {
+            transform: translateX(-50px) rotate(-5deg);
+        }
+        
+        .photo-right {
+            transform: translateX(50px) rotate(5deg);
+        }
+        
+        .photo-animated {
+            opacity: 1;
+            transform: translateX(0) rotate(0);
+        }
+        
+        .photo:hover {
+            transform: translateY(-10px) rotate(0deg) scale(1.05);
+            box-shadow: 0 10px 25px rgba(106, 0, 244, 0.7);
+            z-index: 5;
+        }
+        
+        .photo::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(106, 0, 244, 0.2), transparent);
+            z-index: 1;
+        }
+        
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(30%) contrast(120%);
+            transition: transform 0.5s ease;
+        }
+        
+        .photo:hover img {
+            transform: scale(1.1);
+        }
+        
+        .polaroid-effect {
+            background: #1a1a2a;
+            padding: 10px 10px 30px 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .reveal-button {
+            background-color: transparent;
+            color: #6a00f4;
+            border: 2px solid #6a00f4;
+            padding: 12px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(106, 0, 244, 0.5);
+            transition: all 0.3s ease;
+            font-family: 'Roboto Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards 1.5s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .reveal-button:hover {
+            background-color: #6a00f4;
+            color: #0a0a12;
+            box-shadow: 0 0 20px rgba(106, 0, 244, 0.8);
+            letter-spacing: 4px;
+        }
+        
+        .reveal-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .reveal-button:hover::before {
+            left: 100%;
+        }
+        
+        .letter-container {
+            position: relative;
+            margin: 20px auto;
+            max-width: 600px;
+            display: none;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .letter-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .letter-paper {
+            background-color: #1a1a2a;
+            padding: 30px;
+            border: 2px solid #6a00f4;
+            box-shadow: 0 0 15px rgba(106, 0, 244, 0.5);
+            position: relative;
+            transform: translateY(50px) scale(0.9);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .letter-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #e6e6e6;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease 0.5s;
+        }
+        
+        .letter-content p {
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s ease;
+        }
+        
+        .letter-visible .letter-paper {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        
+        .letter-visible .letter-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .letter-visible .letter-content p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .letter-visible .letter-content p:nth-child(1) { transition-delay: 0.3s; }
+        .letter-visible .letter-content p:nth-child(2) { transition-delay: 0.5s; }
+        .letter-visible .letter-content p:nth-child(3) { transition-delay: 0.7s; }
+        .letter-visible .letter-content p:nth-child(4) { transition-delay: 0.9s; }
+        .letter-visible .letter-content p:nth-child(5) { transition-delay: 1.1s; }
+        
+        .signature {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            text-align: right;
+            margin-top: 30px;
+            color: #6a00f4;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.5s ease 1.3s;
+        }
+        .signature2 {
+            
+            color: #e6e6e6;
+            font-size: 1rem;
+            text-align: right;
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.5s ease 1.3s;
+        }
+        
+        .letter-visible .signature {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .pixel-heart {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #6a00f4;
+            box-shadow: 
+                0 0 5px #6a00f4,
+                0 0 10px #6a00f4;
+            animation: pulse 1.5s infinite;
+            opacity: 0;
+            transition: opacity 0.5s ease 1s;
+        }
+        
+        .letter-visible .pixel-heart {
+            opacity: 1;
+        }
+        
+        .pixel-heart::before, .pixel-heart::after {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #6a00f4;
+            box-shadow: 
+                0 0 5px #6a00f4,
+                0 0 10px #6a00f4;
+        }
+        
+        .pixel-heart::before {
+            top: -7px;
+            left: 0;
+        }
+        
+        .pixel-heart::after {
+            top: 0;
+            left: -7px;
+        }
+        
+        .heart-1 {
+            top: 20px;
+            left: 30px;
+        }
+        
+        .heart-2 {
+            bottom: 40px;
+            right: 30px;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            color: #6a00f4;
+            animation: float 15s infinite linear;
+        }
+        
+        .floating-element:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+            animation-duration: 20s;
+        }
+        
+        .floating-element:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            animation-delay: 2s;
+            animation-duration: 18s;
+        }
+        
+        .floating-element:nth-child(3) {
+            bottom: 30%;
+            left: 15%;
+            animation-delay: 4s;
+            animation-duration: 22s;
+        }
+        
+        .floating-element:nth-child(4) {
+            bottom: 10%;
+            right: 5%;
+            animation-delay: 6s;
+            animation-duration: 17s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+        
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6a00f4;
+            border-top: 1px solid #6a00f4;
+            padding-top: 20px;
+            width: 100%;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 2s;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .footer a {
+            color: #6a00f4;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer a:hover {
+            color: #e6e6e6;
+            text-decoration: underline;
+        }
+        
+        .sound-control {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background-color: rgba(26, 26, 42, 0.8);
+            border: 1px solid #6a00f4;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #6a00f4;
+            box-shadow: 0 0 10px rgba(106, 0, 244, 0.5);
+        }
+        
+        .sound-control:hover {
+            background-color: rgba(106, 0, 244, 0.2);
+        }
+        
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .subheading {
+                font-size: 1.5rem;
+            }
+            
+            .photo {
+                width: 200px;
+                height: 250px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subheading {
+                font-size: 1rem;
+            }
+            
+            .photo {
+                width: 120px;
+                height: 160px;
+            }
+            
+            .photo-container {
+                gap: 10px;
+            }
+            
+            .letter-content {
+                font-size: 0.9rem;
+            }
+            
+            .design-credit {
+                position: relative;
+                bottom: 0;
+                right: 0;
+                text-align: center;
+                margin-top: 20px;
+            }
+            
+            .floating-element {
+                display: none;
+            }
+            
+            .sound-control {
+                bottom: 10px;
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+
+<!-- Tambahkan tombol enable audio -->
+<button id="enableAudioBtn" style="position:fixed; top:10px; right:10px; z-index:1000; padding:10px; background:#6a00f4; color:white; border:none; border-radius:5px;">
+    Aktifkan Audio
+</button>
+
+<script>
+// Fungsi untuk memeriksa error pada gambar
+function checkImageErrors() {
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.onerror = function() {
+            console.error('Gagal memuat gambar:', this.src);
+            this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzFhMWEyYSIvPjx0ZXh0IHg9Ijc1IiB5PSIxMDAiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM2YTAwZjQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkdhZ2FsIG11YWwgZ2FtYmFyPC90ZXh0Pjwvc3ZnPg==';
+        };
+    });
+}
+
+// Fungsi untuk memeriksa error pada audio
+function checkAudioErrors() {
+    const audioElements = document.querySelectorAll('audio');
+    audioElements.forEach(audio => {
+        audio.onerror = function() {
+            console.error('Gagal memuat audio:', this.src);
+        };
+    });
+}
+
+// Tombol untuk mengaktifkan audio
+document.getElementById('enableAudioBtn').addEventListener('click', function() {
+    // Meminta izin audio dengan memutar audio kosong
+    const audio = new Audio();
+    audio.src = 'data:audio/wav;base64,UklGRnoAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQo=';
+    audio.play().then(() => {
+        alert('Audio diaktifkan! Sekarang Anda dapat mendengar suara.');
+        this.style.display = 'none';
+        window.audioEnabled = true;
+    }).catch(e => {
+        alert('Izin audio ditolak. Anda mungkin tidak dapat mendengar suara.');
+    });
+});
+
+// Pindahkan deklarasi variabel audio ke luar event listener
+const buttonSound = document.getElementById('buttonSound');
+const letterMusic = document.getElementById('letterMusic');
+
+// Perbaiki event listener tombol reveal
+document.querySelector('.reveal-button').addEventListener('click', function() {
+    // Memainkan suara tombol
+    if (window.audioEnabled) {
+        buttonSound.play().catch(e => console.log("Button sound error: ", e));
+    } else {
+        alert('Silakan aktifkan audio terlebih dahulu dengan menekan tombol "Aktifkan Audio"');
+        return;
+    }
+    
+    const letterContainer = document.querySelector('.letter-container');
+    letterContainer.style.display = 'block';
+    
+    setTimeout(function() {
+        letterContainer.classList.add('letter-visible');
+        
+        // Jeda 3 detik sebelum memulai backsound
+        setTimeout(() => {
+            if (window.audioEnabled) {
+                letterMusic.play().catch(e => console.log("Letter music error: ", e));
+            }
+        }, 3000);
+        
+    }, 1000);
+    
+    this.style.display = 'none';
+    createConfetti();
+});
+
+// Panggil fungsi pemeriksa error
+checkImageErrors();
+checkAudioErrors();
+</script>
+
+<body>
+    <div class="container">
+        <div class="scan-line"></div>
+        <div class="floating-elements">
+            <div class="floating-element">♥</div>
+            <div class="floating-element">★</div>
+            <div class="floating-element">✦</div>
+            <div class="floating-element">❀</div>
+        </div>
+        
+        <header>
+            <h1>Happy Birthday</h1>
+            <p class="subheading">I have something for you, Kahvi</p>
+        </header>
+        
+        <div class="photo-container">
+            <div class="photo photo-left polaroid-effect">
+                <img src="images/kahvi1.jpg" alt="Photo 1">
+            </div>
+            <div class="photo photo-right polaroid-effect">
+                <img src="images/kahvi2.jpg" alt="Photo 2">
+            </div>
+        </div>
+        
+        <div class="button-container">
+            <button class="reveal-button">Open Your Letter</button>
+        </div>
+        
+        <div class="letter-container">
+            <div class="pixel-heart heart-1"></div>
+            <div class="pixel-heart heart-2"></div>
+            <div class="letter-paper">
+                <div class="letter-content">
+                    <p>Hai Kahvi,</p>
+                    <p>On this special day, I want to remind you how incredibly blessed I am to have you in my life. Your smile lights up my world, your laughter is my favorite melody, and your love is the greatest gift I've ever received.</p>
+                    <p>Selamat ulang tahun, Hari ini kamu masuk ke level baru di hidup kamu. Meskipun belum lama kenal kamu, tapi aku bangga sama kamu. Kamu udh hidup sejauh ini, dgn semua cerita dan proses yang aku tau ga mudah,tapi kamu ttp bisa hidup.</p>
+                    <p>Tahun ini kamu akan lebih sayang sama diri kamu sendiri, lebih tenang, lebih banyak ketemu hal hal yang bikin kamu seneng. Jangan lupa juga buat ttp jaga Kesehatan dan percaya klo kamu pantas dapetin semua hal yang kamu impikan.</p>
+                    <p>Tahun ini dan seterusnya kamu selalu diberi Kesehatan, napasmu ttp lega setiap hari, badanmu ringan meskipun kamu lagi cape, dan tubuhmu bisa selalu jadi rumah yang paling nyaman buat dirimu sendiri. </p>
+                    <p>Tahun ini dan seterusnya kamu selalu punya ketenangan, bukan cuma pas kamu dapetin atau ngeraih hal hal besar, tapi juga ketenangan pas kamu ngelakuin rutinitas sehari hari. Kayak rasa bersyukur pas bisa makan dgn tenang, rasa lega pas pulang kegiatan dan bisa rebahan. Itu semua mungkin keliatan sederhana, tapi aku harap hal hal kecil itu ga akan pernah luput dri hidup kamu.</p>
+                    <p>Diumur kamu yang sekarang orang orang yang kamu temui di jalan, mau temen deket atau orang asing bisa membawa kebaikan buat kamu. Tahun ini dan seterusnya kamu juga selalu merasa cukup, mekipun dunia kadang suka bikin kamu merasa kurang.
+Aku mau kamu tumbuh kuat, tapi bukan kuat yang bikin kamu harus nahan semuanya sendirian, sayang. Kuat maksutku, kuat yang ttp bisa istirahat, bisa jatuh, bisa nangis, tapi ttp berani buat bangun lagi. Karna hidup itu Panjang dan aku mau kamu bisa menikmatinya, bukan cm menjalaninya.</p>
+                    <p>Tahun ini dan seterusnya Kesehatan selalu menyertai tubuhmu, agar tidurmu tenang dan bangunmu penuh energi. Tuhan jadikan hati kamu lapang meskipun dunia sering menekan kamu. Tahun ini dan seterusnya kamu selalu punya tempat utk pulang, entah itu rumah, ataupun orang orang yang mencintai kamu.</p>
+                    <p>Aku selalu ada di sini buat dengerin kamu, buat ngingetin kamu kalo kamu g sendirian. Aku doakan di umur barumu ini kamu makin kuat, dan makin damai sama dirimu sendiri. Lagi lagi semoga kamu ketemu orang orang yang bikin hati kamu senang.
+Aku juga berdoa stiap pagi yang kamu buka ttp bisa jadi awal yang penuh harapan buat kamu, dan supaya setiap malam yang kamu tutup selalu membawa rasa lega, bukan khawatir.</p>
+                    <p>Aku mau setiap detik hidup kamu g cm berjalan gt aja, tapi bnr bnr hidup. Aku mau kamu trs ingat kalo hidup ga cuma tentang tujuan yang besar, tapi juga tentang bagaimana kamu bersyukur dan menghargai proses kecil yang mambawamu kesana.
+Kalo suatu saat nanti kamu merasa duniamu terlalu berisik, aku doakan kamu selalu nemu tempat tenang dihati kamu sendiri. Kalo kamu capek, aku doakan kamu selalu inget kalo kamu boleh istirahat tanpa ngerasa bersalah. Kalo kamu lagi bingung, aku doakan kamu selalu diberi petunjuk, bahkan lewat hal hal yang tak terduga. </p>
+                    <p>aku sayang banget sama kamu. Bukan cm karna kamu lucu, tpi jg karna aku bnr bnr mau jagain kamu, temenin kamu, dan selalu ada dipihak kamu untuk hal yang baik. Aku g butuh kamu jadi sempurna di depan aku. Aku sayang kamu apa adanya, bahkan sisi rapuhmu pun aku peluk. Biarin aku jadi tempatmu pulang, no matter what.</p>
+                    <p>u know why i made it like a game vibe? karna menurutku hidup layaknya game. kuta jalanin step by step, kadang harus sabar naik level, kadang ketemu rintangan dulu baru bisa lanjut. ada kalanya kalah, ada kalanya menang, tapi yang penting kita terus main sampai sejauh mungkin.
+
+ku upayakan apa yang mau kusampaikan, tersampaikan baik ke kamu lewat cara ini. mungkin ini ga sempurna, tapi aku merasa senang selama proses membuatnya, dan aku mau kamu tau kalo setiap detailnya aku niatkan buat kamu.
+
+kalo suatu hari nanti kamu lagi ngerasa capek, kamu boleh buka ini lagi. anggap aja ini checkpoint kecil buat kamu istirahat sebentar sebelum lanjutin gamenya. dengan segala kurang dan lebihnya, aku cuma mau bilang: kamu ga sendirian di "permainan" ini</p>
+                    <p class="signature">Your Forever Love</p>
+                    <p class="signature2">Fian</p>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="design-credit">
+            Designed and Developed with love by Fian © 2025<br>
+            Crafted with love by Fian © 2025 <br>
+        </div>
+        <div class="footer">
+            Made with <span style="color: #6a00f4;">♥</span> for your special day
+        </div>
+    </div>
+
+    <div class="sound-control" id="soundToggle">🔊</div>
+
+    <!-- ============================ -->
+    <!-- BAGIAN UNTUK ELEMEN AUDIO -->
+    <!-- ============================ -->
+    <audio id="buttonSound" src="audio/suara-klik.mp3" preload="auto"></audio>
+    <!-- <audio id="openingSound" src="audio/suara-opening.mp3" preload="auto"></audio> -->
+    <audio id="letterMusic" src="audio/suara-surat.mp3" preload="auto" loop></audio>
+    <!-- ========================== -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ============================
+            // BAGIAN UNTUK SUARA - MULAI
+            // ============================
+            
+            // Variabel untuk mengontrol suara
+            let soundEnabled = true;
+            const soundToggle = document.getElementById('soundToggle');
+            
+            // Mendapatkan elemen audio
+            const buttonSound = document.getElementById('buttonSound');
+            const letterMusic = document.getElementById('letterMusic');
+            
+            
+            // Tombol kontrol suara
+            soundToggle.addEventListener('click', function() {
+                soundEnabled = !soundEnabled;
+                
+                if (soundEnabled) {
+                    this.innerHTML = '🔊';
+                    letterMusic.play().catch(e => console.log("Audio play error: ", e));
+                } else {
+                    this.innerHTML = '🔇';
+                    letterMusic.pause();
+                }
+            });
+            
+            // ==========================
+            // BAGIAN UNTUK SUARA - SELESAI
+            // ==========================
+            
+            // Animate photos after page loads
+            setTimeout(function() {
+                document.querySelectorAll('.photo').forEach(photo => {
+                    photo.classList.add('photo-animated');
+                });
+            }, 1000);
+            
+            // Button click to reveal letter
+            document.querySelector('.reveal-button').addEventListener('click', function() {
+                // Memainkan suara tombol
+                if (soundEnabled) {
+                    buttonSound.play().catch(e => console.log("Button sound error: ", e));
+                }
+                
+                const letterContainer = document.querySelector('.letter-container');
+                
+                // Show the letter container
+                letterContainer.style.display = 'block';
+                
+                // Animate the letter into view
+                setTimeout(function() {
+                    letterContainer.classList.add('letter-visible');
+                    
+                    // Memainkan musik latar saat surat terbuka
+                    if (soundEnabled) {
+                        letterMusic.play().catch(e => console.log("Letter music error: ", e));
+                    }
+                }, 1000);
+                
+                // Hide the button after click
+                this.style.display = 'none';
+                
+                // Add subtle confetti effect
+                createConfetti();
+            });
+            
+            // Parallax effect on scroll
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const photos = document.querySelectorAll('.photo');
+                
+                photos.forEach((photo, index) => {
+                    const rate = scrolled * (index % 2 === 0 ? 0.05 : -0.05);
+                    photo.style.transform = `translateY(${rate}px) rotate(${index % 2 === 0 ? -2 : 2}deg)`;
+                });
+            });
+            
+            // Create simple confetti effect
+            function createConfetti() {
+                const colors = ['#6a00f4', '#8e44ad', '#3498db', '#e74c3c', '#f1c40f'];
+                const container = document.querySelector('.container');
+                
+                for (let i = 0; i < 30; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'floating-element';
+                    confetti.innerHTML = '✦';
+                    confetti.style.position = 'fixed';
+                    confetti.style.fontSize = Math.random() * 10 + 10 + 'px';
+                    confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-50px';
+                    confetti.style.opacity = '0.7';
+                    confetti.style.zIndex = '100';
+                    
+                    document.body.appendChild(confetti);
+                    
+                    // Animate confetti
+                    const animation = confetti.animate([
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 0.7 },
+                        { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                    ], {
+                        duration: Math.random() * 3000 + 2000,
+                        easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+                    });
+                    
+                    animation.onfinish = function() {
+                        confetti.remove();
+                    };
+                }
+            }
+        });
+    </script>
+</body>
+</html>
