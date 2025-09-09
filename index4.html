@@ -451,6 +451,8 @@
             color: #6a00f4;
             text-decoration: none;
             transition: color 0.3s;
+            display: block;
+            margin-top: 10px;
         }
         
         .footer a:hover {
@@ -534,12 +536,168 @@
                 left: 10px;
             }
         }
+        
+        /* Container untuk kedua timer */
+        .timers-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards 1.2s;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .timers-hidden {
+            opacity: 0;
+            transform: translateY(-20px);
+            height: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        /* Style untuk setiap timer */
+        .timer {
+            background-color: #1a1a2a;
+            border: 2px solid #6a00f4;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            min-width: 280px;
+            box-shadow: 0 0 20px rgba(106, 0, 244, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Judul timer */
+        .timer-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            color: #6a00f4;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(106, 0, 244, 0.7);
+        }
+        
+        /* Container untuk unit waktu */
+        .time-units {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        /* Style untuk setiap unit waktu */
+        .time-unit {
+            background: rgba(30, 30, 50, 0.8);
+            border: 1px solid #6a00f4;
+            border-radius: 8px;
+            padding: 10px 5px;
+            min-width: 60px;
+            box-shadow: 0 0 10px rgba(106, 0, 244, 0.3);
+        }
+        
+        /* Nilai waktu (angka) */
+        .time-value {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.8rem;
+            color: #6a00f4;
+            margin: 5px 0;
+            text-shadow: 0 0 10px rgba(106, 0, 244, 0.7);
+        }
+        
+        /* Label waktu */
+        .time-label {
+            font-size: 0.7rem;
+            color: #e6e6e6;
+            text-transform: uppercase;
+        }
+        
+        /* Informasi tambahan di bawah timer */
+        .timer-info {
+            font-size: 0.8rem;
+            color: #e6e6e6;
+            margin-top: 15px;
+            opacity: 0.8;
+        }
+        
+        /* Tombol kembali dari surat */
+        .back-button {
+            background-color: transparent;
+            color: #6a00f4;
+            border: 2px solid #6a00f4;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(106, 0, 244, 0.5);
+            transition: all 0.3s ease;
+            font-family: 'Roboto Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px auto;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .back-button:hover {
+            background-color: #6a00f4;
+            color: #0a0a12;
+            box-shadow: 0 0 20px rgba(106, 0, 244, 0.8);
+        }
+        
+        .letter-visible .back-button {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 1.5s;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 650px) {
+            .timers-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .timer {
+                min-width: 250px;
+                width: 100%;
+            }
+            
+            .time-value {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .time-units {
+                gap: 5px;
+            }
+            
+            .time-unit {
+                min-width: 50px;
+                padding: 8px 3px;
+            }
+            
+            .time-value {
+                font-size: 1.2rem;
+            }
+            
+            .time-label {
+                font-size: 0.6rem;
+            }
+        }
+
+       
+        
+        
+        
     </style>
 </head>
-
 <body>
     <div class="container">
-        <div class="scan-line"></div>
+
         <div class="floating-elements">
             <div class="floating-element">♥</div>
             <div class="floating-element">★</div>
@@ -548,8 +706,8 @@
         </div>
         
         <header>
-            <h1>Happy Birthday</h1>
-            <p class="subheading">I have something for you, Kahvi</p>
+            <h1 id="main-title">Happy Birthday</h1>
+            <p class="subheading">I have something for you, Kahfi</p>
         </header>
         
         <div class="photo-container">
@@ -565,12 +723,63 @@
             <button class="reveal-button">Open Your Letter</button>
         </div>
         
+        <!-- Container untuk kedua timer -->
+        <div class="timers-container">
+            <!-- Relationship Timer -->
+            <div class="timer">
+                <div class="timer-title">TIME TOGETHER</div>
+                <div class="time-units">
+                    <div class="time-unit">
+                        <div class="time-value" id="relationship-days">000</div>
+                        <div class="time-label">DAYS</div>
+                    </div>
+                    <div class="time-unit">
+                        <div class="time-value" id="relationship-hours">00</div>
+                        <div class="time-label">HOURS</div>
+                    </div>
+                    <div class="time-unit">
+                        <div class="time-value" id="relationship-minutes">00</div>
+                        <div class="time-label">MINUTES</div>
+                    </div>
+                    <div class="time-unit">
+                        <div class="time-value" id="relationship-seconds">00</div>
+                        <div class="time-label">SECONDS</div>
+                    </div>
+                </div>
+                <div class="timer-info">Since 04 August 2023, 10:00 AM</div>
+            </div>
+            
+            <!-- Birthday Timer -->
+            <div class="timer">
+                <div class="timer-title">BIRTHDAY IN</div>
+                <div class="time-units">
+                    <div class="time-unit">
+                        <div class="time-value" id="birthday-days">000</div>
+                        <div class="time-label">DAYS</div>
+                    </div>
+                    <div class="time-unit">
+                        <div class="time-value" id="birthday-hours">00</div>
+                        <div class="time-label">HOURS</div>
+                    </div>
+                    <div class="time-unit">
+                        <div class="time-value" id="birthday-minutes">00</div>
+                        <div class="time-label">MINUTES</div>
+                    </div>
+                    <div class="time-unit">
+                        <div class="time-value" id="birthday-seconds">00</div>
+                        <div class="time-label">SECONDS</div>
+                    </div>
+                </div>
+                <div class="timer-info">Until 09 September, 09:00 PM</div>
+            </div>
+        </div>
+        
         <div class="letter-container">
             <div class="pixel-heart heart-1"></div>
             <div class="pixel-heart heart-2"></div>
             <div class="letter-paper">
                 <div class="letter-content">
-                    <p>Hai Kahvi,</p>
+                    <p>Hai Kahfi,</p>
                     <p>On this special day, I want to remind you how incredibly blessed I am to have you in my life. Your smile lights up my world, your laughter is my favorite melody, and your love is the greatest gift I've ever received.</p>
                     <p>Selamat ulang tahun, Hari ini kamu masuk ke level baru di hidup kamu. Meskipun belum lama kenal kamu, tapi aku bangga sama kamu. Kamu udh hidup sejauh ini, dgn semua cerita dan proses yang aku tau ga mudah,tapi kamu ttp bisa hidup.</p>
                     <p>Tahun ini kamu akan lebih sayang sama diri kamu sendiri, lebih tenang, lebih banyak ketemu hal hal yang bikin kamu seneng. Jangan lupa juga buat ttp jaga Kesehatan dan percaya klo kamu pantas dapetin semua hal yang kamu impikan.</p>
@@ -593,12 +802,12 @@ kalo suatu hari nanti kamu lagi ngerasa capek, kamu boleh buka ini lagi. anggap 
                     <p class="signature2">Fian</p>
                 </div>
             </div>
+            <button class="back-button">Back to Main Page</button>
         </div>
-        
         
         <div class="design-credit">
             Designed and Developed with love by Fian © 2025<br>
-            Crafted with love by Fian © 2025 <br>
+            Crafted with love by Fian © 2025
         </div>
         <div class="footer">
             Made with <span style="color: #6a00f4;">♥</span> for your special day
@@ -611,7 +820,6 @@ kalo suatu hari nanti kamu lagi ngerasa capek, kamu boleh buka ini lagi. anggap 
     <!-- BAGIAN UNTUK ELEMEN AUDIO -->
     <!-- ============================ -->
     <audio id="buttonSound" src="audio/suara-klik.mp3" preload="auto"></audio>
-    <!-- <audio id="openingSound" src="audio/suara-opening.mp3" preload="auto"></audio> -->
     <audio id="letterMusic" src="audio/suara-surat.mp3" preload="auto" loop></audio>
     <!-- ========================== -->
 
@@ -629,6 +837,199 @@ kalo suatu hari nanti kamu lagi ngerasa capek, kamu boleh buka ini lagi. anggap 
             const buttonSound = document.getElementById('buttonSound');
             const letterMusic = document.getElementById('letterMusic');
             
+            // ============================
+            // BAGIAN UNTUK TIMER - MULAI
+            // ============================
+            
+            // Tanggal mulai hubungan
+            const relationshipDate = new Date(2025, 7, 4, 10, 0, 0); // 4 Agustus 2023, 10:00 AM
+            
+            // Tanggal ulang tahun
+            const now = new Date();
+            let birthdayDate = new Date(now.getFullYear(), 8, 9, 21, 0, 0); // 9 September, 09:00 PM
+            
+            // Jika ulang tahun tahun ini sudah lewat, ambil tahun depan
+            if (now > birthdayDate) {
+                birthdayDate.setFullYear(now.getFullYear() + 1);
+            }
+            
+            // Elemen untuk relationship timer
+            const relationshipDaysEl = document.getElementById('relationship-days');
+            const relationshipHoursEl = document.getElementById('relationship-hours');
+            const relationshipMinutesEl = document.getElementById('relationship-minutes');
+            const relationshipSecondsEl = document.getElementById('relationship-seconds');
+            
+            // Elemen untuk birthday timer
+            const birthdayDaysEl = document.getElementById('birthday-days');
+            const birthdayHoursEl = document.getElementById('birthday-hours');
+            const birthdayMinutesEl = document.getElementById('birthday-minutes');
+            const birthdaySecondsEl = document.getElementById('birthday-seconds');
+            
+            // Container untuk timer
+            const timersContainer = document.querySelector('.timers-container');
+            
+            // Fungsi untuk menghitung waktu yang sudah berjalan (relationship)
+            function calculateTimeTogether() {
+                const now = new Date();
+                const diff = now - relationshipDate;
+                
+                if (diff <= 0) {
+                    // Jika tanggal hubungan di masa depan
+                    relationshipDaysEl.textContent = "000";
+                    relationshipHoursEl.textContent = "00";
+                    relationshipMinutesEl.textContent = "00";
+                    relationshipSecondsEl.textContent = "00";
+                    return;
+                }
+                
+                // Hitung hari, jam, menit, detik yang sudah berjalan
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                // Update elemen
+                relationshipDaysEl.textContent = days.toString().padStart(3, '0');
+                relationshipHoursEl.textContent = hours.toString().padStart(2, '0');
+                relationshipMinutesEl.textContent = minutes.toString().padStart(2, '0');
+                relationshipSecondsEl.textContent = seconds.toString().padStart(2, '0');
+            }
+            
+            // Fungsi untuk menghitung countdown ke ulang tahun
+            function calculateBirthdayCountdown() {
+                const now = new Date();
+                const diff = birthdayDate - now;
+                
+                if (diff <= 0) {
+                    // Jika ulang tahun sudah lewat, atur ke ulang tahun tahun depan
+                    birthdayDate.setFullYear(now.getFullYear() + 1);
+                    calculateBirthdayCountdown();
+                    return;
+                }
+                
+                // Hitung hari, jam, menit, detik yang tersisa
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                // Update elemen
+                birthdayDaysEl.textContent = days.toString().padStart(3, '0');
+                birthdayHoursEl.textContent = hours.toString().padStart(2, '0');
+                birthdayMinutesEl.textContent = minutes.toString().padStart(2, '0');
+                birthdaySecondsEl.textContent = seconds.toString().padStart(2, '0');
+            }
+            
+            // Jalankan perhitungan pertama kali
+            calculateTimeTogether();
+            calculateBirthdayCountdown();
+            
+            // Perbarui timer setiap detik
+            const timerInterval = setInterval(() => {
+                calculateTimeTogether();
+                calculateBirthdayCountdown();
+            }, 1000);
+            
+            // ==========================
+            // BAGIAN UNTUK SURAT - MULAI
+            // ==========================
+            
+            // Elemen untuk surat dan tombol
+            const revealButton = document.querySelector('.reveal-button');
+            const letterContainer = document.querySelector('.letter-container');
+            const backButton = document.querySelector('.back-button');
+            
+            // Button click to reveal letter
+            
+            revealButton.addEventListener('click', function() {
+                // Memainkan suara tombol
+                if (soundEnabled) {
+                    buttonSound.play().catch(e => console.log("Button sound error: ", e));
+                }
+                // Sembunyikan timer
+                timersContainer.classList.add('timers-hidden');
+                
+                // Show the letter container
+                letterContainer.style.display = 'block';
+                
+                // Animate the letter into view
+                setTimeout(function() {
+                    letterContainer.classList.add('letter-visible');
+
+                    // Memainkan musik latar saat surat terbuka
+                    if (soundEnabled) {
+                        letterMusic.play().catch(e => console.log("Letter music error: ", e));
+                    }
+                }, 100);
+                
+                // Hide the button after click
+                this.style.display = 'none';
+                
+            });
+            
+            // Button click to go back to main page
+            backButton.addEventListener('click', function() {
+                // Memainkan suara tombol
+                if (soundEnabled) {
+                    buttonSound.play().catch(e => console.log("Button sound error: ", e));
+                }
+                // Sembunyikan surat
+                letterContainer.classList.remove('letter-visible');
+                
+                // Tunggu animasi selesai sebelum menyembunyikan container
+                setTimeout(function() {
+                    letterContainer.style.display = 'none';
+                    
+                    // Tampilkan kembali timer
+                    timersContainer.classList.remove('timers-hidden');
+                    
+                    // Tampilkan kembali tombol buka surat
+                    revealButton.style.display = 'block';
+                }, 500);
+            });
+
+            // ========================
+            // BAGIAN UNTUK ANIMASI INTERAKTIF - MULAI
+            // ========================
+            // Judul interaktif
+            const mainTitle = document.getElementById('main-title');
+            mainTitle.addEventListener('click', function() {
+                this.style.color = getRandomColor();
+            });
+
+            
+
+            // Fungsi untuk mendapatkan warna acak
+            function getRandomColor() {
+                const colors = ['#6a00f4', '#8e44ad', '#3498db', '#e74c3c', '#f1c40f', '#1abc9c', '#ff7b00'];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+            
+            // ========================
+            // BAGIAN UNTUK ANIMASI - MULAI
+            // ========================
+            
+            // Animate photos after page loads
+            setTimeout(function() {
+                document.querySelectorAll('.photo').forEach(photo => {
+                    photo.classList.add('photo-animated');
+                });
+            }, 1000);
+            
+            // Parallax effect on scroll
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const photos = document.querySelectorAll('.photo');
+                
+                photos.forEach((photo, index) => {
+                    const rate = scrolled * (index % 2 === 0 ? 0.05 : -0.05);
+                    photo.style.transform = `translateY(${rate}px) rotate(${index % 2 === 0 ? -2 : 2}deg)`;
+                });
+            });
+
+            // ==========================
+            // BAGIAN UNTUK SUARA - SELESAI
+            // ==========================
             
             // Tombol kontrol suara
             soundToggle.addEventListener('click', function() {
@@ -641,57 +1042,6 @@ kalo suatu hari nanti kamu lagi ngerasa capek, kamu boleh buka ini lagi. anggap 
                     this.innerHTML = '🔇';
                     letterMusic.pause();
                 }
-            });
-            
-            // ==========================
-            // BAGIAN UNTUK SUARA - SELESAI
-            // ==========================
-            
-            // Animate photos after page loads
-            setTimeout(function() {
-                document.querySelectorAll('.photo').forEach(photo => {
-                    photo.classList.add('photo-animated');
-                });
-            }, 1000);
-            
-            // Button click to reveal letter
-            document.querySelector('.reveal-button').addEventListener('click', function() {
-                // Memainkan suara tombol
-                if (soundEnabled) {
-                    buttonSound.play().catch(e => console.log("Button sound error: ", e));
-                }
-                
-                const letterContainer = document.querySelector('.letter-container');
-                
-                // Show the letter container
-                letterContainer.style.display = 'block';
-                
-                // Animate the letter into view
-                setTimeout(function() {
-                    letterContainer.classList.add('letter-visible');
-                    
-                    // Memainkan musik latar saat surat terbuka
-                    if (soundEnabled) {
-                        letterMusic.play().catch(e => console.log("Letter music error: ", e));
-                    }
-                }, 1000);
-                
-                // Hide the button after click
-                this.style.display = 'none';
-                
-                // Add subtle confetti effect
-                createConfetti();
-            });
-            
-            // Parallax effect on scroll
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const photos = document.querySelectorAll('.photo');
-                
-                photos.forEach((photo, index) => {
-                    const rate = scrolled * (index % 2 === 0 ? 0.05 : -0.05);
-                    photo.style.transform = `translateY(${rate}px) rotate(${index % 2 === 0 ? -2 : 2}deg)`;
-                });
             });
             
             // Create simple confetti effect
